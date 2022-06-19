@@ -87,15 +87,16 @@ public class Graph {
 
     public static Graph createGraph() {
         Graph graph = new Graph();
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("D");
-        graph.addVertex("C");
-        graph.addVertex("E");
-        graph.addUndirectedGraphEdge("A", "B", 1);
-        graph.addUndirectedGraphEdge("A", "C", 2);
-        graph.addUndirectedGraphEdge("B", "D", 3);
-        graph.addUndirectedGraphEdge("C", "D", 4);
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addVertex("3");
+        graph.addUndirectedGraphEdge("0", "1", 20);
+        graph.addUndirectedGraphEdge("0", "2", 10);
+        graph.addUndirectedGraphEdge("0", "3", 12);
+        graph.addUndirectedGraphEdge("1", "2", 15);
+        graph.addUndirectedGraphEdge("1", "3", 11);
+        graph.addUndirectedGraphEdge("2", "3", 17);
         return graph;
     }
 
@@ -141,6 +142,24 @@ public class Graph {
             }
         }
         return adjacencyList;
+    }
+
+    // biến listGrpah thành matrixGraph để sử dụng cho các thuật toán
+    public int[][] convertToMatrix(){
+
+        int[][] matrix = new int[vertices.size()][vertices.size()];// khỏi tạo ma trận
+
+        for (Vertex v : vertices) {
+            int row=Integer.parseInt(v.getId());// cho đỉnh source là row
+            for (Edge e : edges) {
+                if (e.getSource().getId().equals(v.getId())) {
+                    int col=Integer.parseInt(e.getDestination().getId());// cho đỉnh destination là col
+                    matrix[row][col]=e.getWeight();// cho weight của edge vào trong matrix
+                }
+            }
+        }
+
+        return matrix;
     }
 
     public Set<Vertex> getVertices() {
