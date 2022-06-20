@@ -145,7 +145,7 @@ public class Graph {
     }
 
     // biến listGrpah thành matrixGraph để sử dụng cho các thuật toán
-    public int[][] convertToMatrix(){
+    /*public int[][] convertToMatrix(){
 
         int[][] matrix = new int[vertices.size()][vertices.size()];// khỏi tạo ma trận
 
@@ -160,7 +160,7 @@ public class Graph {
         }
 
         return matrix;
-    }
+    }*/
 
     public Set<Vertex> getVertices() {
         return vertices;

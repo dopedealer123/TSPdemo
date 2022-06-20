@@ -1,9 +1,7 @@
 package algorithm;
 
 import graph.Vertex;
-import math.nextPermutation;
 
-import java.util.LinkedList;
 import java.util.Scanner;
 
 import static math.nextPermutation.findNextPermutation;

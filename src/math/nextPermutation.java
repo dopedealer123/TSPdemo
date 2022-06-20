@@ -81,7 +81,7 @@ public class nextPermutation {
     }
 
     // Driver Code
-    public static void main(String args[])
+    /*public static void main(String args[])
     {
         int data[] = { 1, 2, 3, 4, 5, 6};
         System.out.println(data[0]+" "+data[1]+" "+ data[2]+ " "+ data[3]+ " "+data[4]+ " "+ data[5]);
@@ -90,5 +90,5 @@ public class nextPermutation {
                 System.out.println(data[0]+" "+data[1]+" "+ data[2]+ " "+ data[3]+ " "+data[4]+ " "+ data[5]);
             }
 
-    }
+    }*/
 }
