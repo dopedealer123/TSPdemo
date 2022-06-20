@@ -10,9 +10,9 @@ public class BruteForce extends Algorithm {
     @Override
     public void explore() {
 
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
         System.out.println("-------------BruteForce-------------");
-        Vertex startVertex = null;
+        /*Vertex startVertex = null;
         String startId = " ";
         do {
             System.out.println("Enter the starting vertex id: ");
@@ -24,10 +24,10 @@ public class BruteForce extends Algorithm {
                 System.out.println(graph.toString());
             } else
                 break; // valid vertex id
-        } while (true);
+        } while (true);*/
 
         int shortestPath = 1000000000;
-        int source = Integer.parseInt(startId);
+        int source = 0;
         int[] nodes= new int[graph.getVertices().size()-1];
         int n=nodes.length;
         int j=0;
