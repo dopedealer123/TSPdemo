@@ -25,34 +25,35 @@ public class DynamicProgramming extends Algorithm {
 
     }
 
-    public int shortestPath(int[][] dpArray,int visited,int mask,int position){
+    public int shortestPath(int[][] dpArray,int visited,int checker,int position){
 
-        //khi đã duyệt hết tất cả các đỉnh hay chưa
-        if(mask == visited)
+        //kiểm tra đã duyệt hết tất cả các đỉnh hay chưa
+        if(checker == visited)
         {
             return graph.getEdge(Integer.toString(position),Integer.toString(0)).getWeight();
         }
 
-        /// kiểm tra xem cạnh đã được duyệt thông qua dpArray
-        if(dpArray[mask][position] != -1)
+        /// kiểm tra xem cạnh có tồn tai trong dpArray
+        if(dpArray[checker][position] != -1)
         {
-            return dpArray[mask][position];
+            return dpArray[checker][position];
         }
 
 
         int ans = 100000;
+        // với mỗi đỉnh chưa đc duyệt
         for(int city=0;city<graph.getVertices().size();city++){
 
-            if((mask&(1<<city))==0){
+            if((checker&(1<<city))==0){
 
-                int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + shortestPath(dpArray,visited,mask|(1<<city),city);
+                int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + shortestPath(dpArray,visited,checker|(1<<city),city);
                 ans = (ans > newAns) ? newAns : ans;
             }
         }
 
 
-        dpArray[mask][position] = ans;
-        return dpArray[mask][position] = ans;
+        dpArray[checker][position] = ans;
+        return dpArray[checker][position] = ans;
     }
 
 }
