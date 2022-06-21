@@ -3,14 +3,15 @@ package algorithm;
 public class DynamicProgramming extends Algorithm {
     @Override
     public void explore() {
-        int permutationNum=(1<<graph.getVertices().size()); // số hoán vị = (1<<vertexNumber)
 
         int visited=(1<<graph.getVertices().size())-1;
 
-        // dpAray: mỗi dòng tương đương 1 hoán vị, mỗi phần tử trên 1 dòng là weigt giưa 2 đỉnh
+        // số hoán vị của các đỉnh trong đồ thị (không tính đỉnh gốc là 0)
+        int permutationNum=(1<<graph.getVertices().size());
+        // dpAray: mỗi dòng tương đương 1 hoán vị c
         int [][]dpArray=new int[permutationNum][graph.getVertices().size()];
 
-        //khoi tao gia tri ban dau la -1
+        //khoi tao gia tri ban dau la -1, chưa có cạnh nào đc duyệt
         for(int i=0;i<permutationNum;i++)
         {
             for(int j=0;j<graph.getVertices().size();j++)
