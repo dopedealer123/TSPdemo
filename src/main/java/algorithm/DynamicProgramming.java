@@ -20,12 +20,12 @@ public class DynamicProgramming extends Algorithm {
             }
         }
 
-        int shortestPath= shortestPath(dpArray,visited,1,0);
+        int shortestPath= findTour(dpArray,visited,1,0);
         System.out.println("quang dg ngan nhat la: "+ shortestPath);
 
     }
 
-    public int shortestPath(int[][] dpArray,int visited,int checker,int position){
+    public int findTour(int[][] dpArray, int visited, int checker, int position){
 
         //kiểm tra đã duyệt hết tất cả các đỉnh hay chưa
         if(checker == visited)
@@ -46,7 +46,7 @@ public class DynamicProgramming extends Algorithm {
 
             if((checker&(1<<city))==0){
 
-                int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + shortestPath(dpArray,visited,checker|(1<<city),city);
+                int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + findTour(dpArray,visited,checker|(1<<city),city);
                 ans = Math.min(ans,newAns);
             }
         }

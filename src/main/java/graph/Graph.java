@@ -91,12 +91,12 @@ public class Graph {
         graph.addVertex("1");
         graph.addVertex("2");
         graph.addVertex("3");
-        graph.addUndirectedGraphEdge("0", "1", 20);
-        graph.addUndirectedGraphEdge("0", "2", 10);
-        graph.addUndirectedGraphEdge("0", "3", 12);
-        graph.addUndirectedGraphEdge("1", "2", 15);
-        graph.addUndirectedGraphEdge("1", "3", 11);
-        graph.addUndirectedGraphEdge("2", "3", 17);
+        graph.addUndirectedGraphEdge("0", "1", 25);
+        graph.addUndirectedGraphEdge("0", "2", 25);
+        graph.addUndirectedGraphEdge("0", "3", 13);
+        graph.addUndirectedGraphEdge("1", "2", 25);
+        graph.addUndirectedGraphEdge("1", "3", 13);
+        graph.addUndirectedGraphEdge("2", "3", 13);
         return graph;
     }
 
@@ -134,7 +134,7 @@ public class Graph {
         return null;
     }
 
-    public Set<Vertex> getNeighbors(String vertexId) {
+    /*public Set<Vertex> getNeighbors(String vertexId) {
         Set<Vertex> adjacencyList = new TreeSet<Vertex>();
         for (Edge e : edges) {
             if (e.getSource().getId().equals(vertexId)) {
