@@ -1,4 +1,4 @@
-package graph;
+package main.java.graph;
 
 public class Edge implements Comparable<Edge> {
     private Vertex source;

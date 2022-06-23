@@ -1,8 +1,8 @@
-package algorithm;
+package main.java.algorithm;
 
 public class DynamicProgramming extends Algorithm {
     @Override
-    public void explore() {
+    public void run() {
 
         int visited=(1<<graph.getVertices().size())-1;
 
@@ -47,7 +47,7 @@ public class DynamicProgramming extends Algorithm {
             if((checker&(1<<city))==0){
 
                 int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + shortestPath(dpArray,visited,checker|(1<<city),city);
-                ans = (ans > newAns) ? newAns : ans;
+                ans = Math.min(ans,newAns);
             }
         }
 
@@ -56,4 +56,8 @@ public class DynamicProgramming extends Algorithm {
         return dpArray[checker][position] = ans;
     }
 
+    public void showStep() {
+        // TODO
+        System.out.println("Dijkstra");
+    }
 }

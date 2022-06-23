@@ -1,15 +1,16 @@
-package context;
+package main.java.context;
 
-import algorithm.Algorithm;
-import graph.Graph;
+import main.java.algorithm.Algorithm;
 
 public class Context {
     private Algorithm algorithm;
 
 
     public void play() {
-        algorithm.explore();
+        algorithm.run();
+        algorithm.showStep();
     }
+
 
     public Algorithm getAlgorithm() {
         return algorithm;

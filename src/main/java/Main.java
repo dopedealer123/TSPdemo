@@ -1,12 +1,12 @@
+package main.java;
 
-
-import algorithm.Algorithm;
-import algorithm.Approximation;
-import algorithm.BruteForce;
-import algorithm.DynamicProgramming;
-import context.Context;
-import graph.Graph;
-import utils.PressEnterToContinue;
+import main.java.algorithm.Algorithm;
+import main.java.algorithm.Approximation;
+import main.java.algorithm.BruteForce;
+import main.java.algorithm.DynamicProgramming;
+import main.java.context.Context;
+import main.java.graph.Graph;
+import main.java.utils.PressEnterToContinue;
 
 import java.util.Scanner;
 

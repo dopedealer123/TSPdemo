@@ -1,12 +1,12 @@
-package algorithm;
+package main.java.algorithm;
 
-import graph.Vertex;
+import main.java.graph.Vertex;
 
 import java.util.*;
 
 public class Approximation extends Algorithm {
     @Override
-    public void explore() {
+    public void run() {
         // TODO
         Scanner sc = new Scanner(System.in);
         System.out.println("-------------BFS-------------");
@@ -70,6 +70,11 @@ public class Approximation extends Algorithm {
                 v = parent.get(v);
             }
         }
+    }
+
+    public void showStep() {
+        // TODO
+        System.out.println("Dijkstra");
     }
 }
 
