@@ -28,30 +28,36 @@ public class BruteForce extends Algorithm {
 
         int shortestPath= findTour(visited,1,0);
 
+        showStep();
+
         System.out.println("quang dg ngan nhat la: "+ shortestPath);
+
+
+
 
     }
 
     public int findTour(int visited, int checker, int position){
         //step0
-        stepList.add(new Step(0,"step 0"));
+        stepList.add(new Step(0,"Visited= "+Integer.toString(visited,2)+", Positsion= "+ position + ", Checker= " + Integer.toString(checker,2)));
 
         //khi đã duyệt hết tất cả các đỉnh hay chưa
         if(checker == visited)
         {
             //step1
-            stepList.add(new Step(1,"step 1"));
+            stepList.add(new Step(1,"Every node has been visited. Returning the cost between the last and the original vertex: "+graph.getEdge(Integer.toString(position),Integer.toString(0)).getWeight()));
             return graph.getEdge(Integer.toString(position),Integer.toString(0)).getWeight();
         }
 
 
 
         int ans = 100000;
-        for(int city=0;city<graph.getVertices().size();city++){
+        int city=0;
+        for(city=0;city<graph.getVertices().size();city++){
 
             if((checker&(1<<city))==0){
                 //step2
-                stepList.add(new Step(2,"step 2"));
+                stepList.add(new Step(2,"going from "+ position+ " to " +city));
 
                 int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + findTour(visited,checker|(1<<city),city);
                 ans = Math.min(ans,newAns);
@@ -60,7 +66,7 @@ public class BruteForce extends Algorithm {
         }
 
         //step3
-        stepList.add(new Step(3,"step 3"));
+        stepList.add(new Step(3,"The  current cost is: "+ans));
         return ans;
 
     }
@@ -77,6 +83,21 @@ public class BruteForce extends Algorithm {
                 }
             }
             PressEnterToContinue.run();
+        }
+    }
+
+    public void nextStep() {
+        for (Step step : stepList) {
+            System.out.println(step.toString());
+            System.out.println("----------------------------");
+            for (int i = 0; i < pseudoStep.size(); i++) {
+                if (step.getId() == i) {
+                    System.out.println(ANSI_RED + pseudoStep.get(i) + ANSI_RESET);
+                } else {
+                    System.out.println(pseudoStep.get(i));
+                }
+            }
+
         }
     }
 }

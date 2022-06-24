@@ -8,7 +8,6 @@ public class Context {
 
     public void play() {
         algorithm.run();
-        algorithm.showStep();
     }
 
 

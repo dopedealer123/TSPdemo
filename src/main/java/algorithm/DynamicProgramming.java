@@ -1,6 +1,18 @@
 package main.java.algorithm;
 
+import main.java.step.Step;
+import main.java.utils.PressEnterToContinue;
+
+import java.util.HashMap;
+
 public class DynamicProgramming extends Algorithm {
+
+    private HashMap<Integer, String> pseudoStep = new HashMap<Integer, String>();
+
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    public static final String ANSI_RED = "\u001B[31m";
+
     @Override
     public void run() {
 
@@ -8,7 +20,7 @@ public class DynamicProgramming extends Algorithm {
 
         // số hoán vị của các đỉnh trong đồ thị (không tính đỉnh gốc là 0)
         int permutationNum=(1<<graph.getVertices().size());
-        // dpAray: mỗi dòng tương đương 1 hoán vị c
+        // dpAray: mỗi dòng tương đương 1 hoán vị
         int [][]dpArray=new int[permutationNum][graph.getVertices().size()];
 
         //khoi tao gia tri ban dau la -1, chưa có cạnh nào đc duyệt
@@ -57,7 +69,32 @@ public class DynamicProgramming extends Algorithm {
     }
 
     public void showStep() {
-        // TODO
-        System.out.println("Dijkstra");
+        for (Step step : stepList) {
+            System.out.println(step.toString());
+            System.out.println("----------------------------");
+            for (int i = 0; i < pseudoStep.size(); i++) {
+                if (step.getId() == i) {
+                    System.out.println(ANSI_RED + pseudoStep.get(i) + ANSI_RESET);
+                } else {
+                    System.out.println(pseudoStep.get(i));
+                }
+            }
+            PressEnterToContinue.run();
+        }
+    }
+
+    public void nextStep() {
+        for (Step step : stepList) {
+            System.out.println(step.toString());
+            System.out.println("----------------------------");
+            for (int i = 0; i < pseudoStep.size(); i++) {
+                if (step.getId() == i) {
+                    System.out.println(ANSI_RED + pseudoStep.get(i) + ANSI_RESET);
+                } else {
+                    System.out.println(pseudoStep.get(i));
+                }
+            }
+
+        }
     }
 }
