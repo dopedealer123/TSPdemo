@@ -52,7 +52,7 @@ public class DynamicProgramming extends Algorithm {
         }
 
 
-        int ans = 100000;
+        int ans = Integer.MAX_VALUE;
         // với mỗi đỉnh chưa đc duyệt
         for(int city=0;city<graph.getVertices().size();city++){
 

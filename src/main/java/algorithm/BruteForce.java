@@ -5,7 +5,7 @@ import main.java.step.Step;
 import main.java.utils.PressEnterToContinue;
 public class BruteForce extends Algorithm {
 
-    private HashMap<Integer, String> pseudoStep = new HashMap<Integer, String>();
+    private final HashMap<Integer,String> pseudoStep = new HashMap<Integer, String>();
 
     public static final String ANSI_RESET = "\u001B[0m";
 
@@ -33,8 +33,6 @@ public class BruteForce extends Algorithm {
         System.out.println("quang dg ngan nhat la: "+ shortestPath);
 
 
-
-
     }
 
     public int findTour(int visited, int checker, int position){
@@ -51,8 +49,8 @@ public class BruteForce extends Algorithm {
 
 
 
-        int ans = 100000;
-        int city=0;
+        int ans = Integer.MAX_VALUE;
+        int city;
         for(city=0;city<graph.getVertices().size();city++){
 
             if((checker&(1<<city))==0){
