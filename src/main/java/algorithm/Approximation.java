@@ -2,8 +2,6 @@ package main.java.algorithm;
 
 import main.java.step.Step;
 import main.java.utils.PressEnterToContinue;
-import main.java.graph. Vertex;
-
 import java.util.*;
 
 public class Approximation extends Algorithm {
@@ -13,11 +11,22 @@ public class Approximation extends Algorithm {
 
     public static final String ANSI_RED = "\u001B[31m";
 
+    public Approximation() {
+        super();
+        // init pseudoStep
+        pseudoStep.put(0, "Get the MST of the (complete) graph");
+        pseudoStep.put(1, "Duplicate each edge in the MST and obtain a eulerian tour");
+        pseudoStep.put(2, "Obtain a TSP tour from the obtained eulerian tour\n" + "skip repeated vertices");
+        pseudoStep.put(3, " return ans\n");
+    }
+
     @Override
     public void run() {
 
-        int[] finalAns=new int[graph.getVertices().size()+1];
-        int index=0;
+        stepList.clear();
+
+        ArrayList<Integer> finalAns=new ArrayList<>();
+        ArrayList<Integer> euler   =new ArrayList<>();
 
         boolean[] visitedNodes = new boolean[graph.getVertices().size()];
 
@@ -28,28 +37,21 @@ public class Approximation extends Algorithm {
 
         int[] parent = primMST();
 
-        dfs(parent,0,visitedNodes,finalAns,index);
-        System.out.println(index);
-        //1finalAns[index]=0;
+        dfs(parent,0,visitedNodes,finalAns,euler);
 
-        int shortestPath = 0;
+        finalAns.add(0);
+        euler.add(0);
 
+        //step2
+        stepList.add(new Step(1,"The euler tour of the MST is "+ euler));
 
-        System.out.println(Arrays.toString(finalAns));
+        //step3 (step 1 and 2 in primMST)
+        stepList.add(new Step(2,"Found 2-approximation TSP tour "+ finalAns + " with cost = "+ calculate(finalAns)));
 
-        for (int i = 1; i <finalAns.length; i++) {
-            String source= Integer.toString(finalAns[i-1]);
-            String destination= Integer.toString(finalAns[i]);
-            System.out.println(finalAns[i-1]+" "+finalAns[i]);
-            shortestPath = shortestPath +  graph.getEdge(source,destination).getWeight();
-        }
-
-        System.out.println(shortestPath);
-
-
+        nextStep();
     }
 
-    public void showStep() {
+    public void nextStep() {
         for (Step step : stepList) {
             System.out.println(step.toString());
             System.out.println("----------------------------");
@@ -64,7 +66,7 @@ public class Approximation extends Algorithm {
         }
     }
 
-    public void nextStep() {
+    public void showStep() {
         for (Step step : stepList) {
             System.out.println(step.toString());
             System.out.println("----------------------------");
@@ -96,6 +98,9 @@ public class Approximation extends Algorithm {
 
     public int[] primMST() // getting the Minimum Spanning Tree from the given graph, using Prim's Algorithm
     {
+        //step1
+        stepList.add(new Step(0,"Creat MST of the graph"));
+
         int V= graph.getVertices().size();
 
         int[] parent = new int[V];// Exp: if parent[u]=v, mean v is parent of u
@@ -141,37 +146,61 @@ public class Approximation extends Algorithm {
                 }
             }
         }
+
         return parent; // return the list of MST
     }
 
 
-    void dfs(int[] parent, int startingVertex, boolean[] visitedNodes, int[]finalAns,int index) // getting the preorder walk of the MST using DFS
+    void dfs(int[] parent, int startingVertex, boolean[] visitedNodes, ArrayList<Integer> finalAns,ArrayList<Integer> euler) // getting the preorder walk of the MST using DFS
     {
-        System.out.println("index: "+ index);
         // adding the node to final answer
-        finalAns[index]=startingVertex;
 
-        index=index+1;
+        euler.add(startingVertex);
+        finalAns.add(startingVertex);
 
         // checking the visited status
         visitedNodes[startingVertex] = true;
 
         // using a recursive call
         for(int i=0;i<graph.getVertices().size();i++)
-        {
+        {   euler.add(i);
             if(i==startingVertex)
             {
                 continue;
             }
             if(parent[i]==startingVertex)//  if startingVertex is parent of i
             {
+
                 if(visitedNodes[i])
                 {
+                    euler.add(i);
+                    System.out.println("I="+i);
+
+                }
+                if(visitedNodes[i])
+                {
+
                     continue;
                 }
-                dfs(parent,i,visitedNodes,finalAns,index);
+                dfs(parent,i,visitedNodes,finalAns,euler);
             }
         }
-}
+    }
+
+    public int calculate(ArrayList<Integer> finalAns){
+        int shortestPath = 0;
+
+        Object[] finalAnsArray=finalAns.toArray();
+
+        for (int i = 1; i < finalAnsArray.length; i++) {
+            String source= finalAnsArray[i-1].toString();
+
+            String destination= finalAnsArray[i].toString();
+
+            shortestPath = shortestPath +  graph.getEdge(source,destination).getWeight();
+        }
+
+        return shortestPath;
+    }
 }
 
