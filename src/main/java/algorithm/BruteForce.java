@@ -44,20 +44,22 @@ public class BruteForce extends Algorithm {
         {
             //step1
             stepList.add(new Step(1,"Every node has been visited. Returning the cost between the last and the original vertex: "+graph.getEdge(Integer.toString(position),Integer.toString(0)).getWeight()));
+
             return graph.getEdge(Integer.toString(position),Integer.toString(0)).getWeight();
         }
 
-
-
         int ans = Integer.MAX_VALUE;
-        int city;
-        for(city=0;city<graph.getVertices().size();city++){
+
+        for(int city=0;city<graph.getVertices().size();city++){
 
             if((checker&(1<<city))==0){
                 //step2
                 stepList.add(new Step(2,"going from "+ position+ " to " +city));
 
-                int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + findTour(visited,checker|(1<<city),city);
+                int weight=graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight();
+
+                int newAns = weight + findTour(visited,checker|(1<<city),city);
+
                 ans = Math.min(ans,newAns);
 
             }
@@ -65,6 +67,7 @@ public class BruteForce extends Algorithm {
 
         //step3
         stepList.add(new Step(3,"The  current cost is: "+ans));
+
         return ans;
 
     }

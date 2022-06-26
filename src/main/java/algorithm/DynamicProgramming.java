@@ -45,8 +45,7 @@ public class DynamicProgramming extends Algorithm {
 
         int shortestPath= findTour(memo,visited,1,0);
 
-        showStep
-                ();
+        showStep();
 
         System.out.println("quang dg ngan nhat la: "+ shortestPath);
 
@@ -70,14 +69,15 @@ public class DynamicProgramming extends Algorithm {
         if(memo[checker][position] != -1)
         {
             //step2
-            stepList.add(new Step(2,"this current state ("+ position+ ", " + Integer.toString(checker,2)+  ") have been computed.\n" +
-                    "return memo[checker][position]= "+memo[checker][position]));
+            stepList.add(new Step(2,"this current state ("+ position+ ", " + Integer.toString(checker,2)+  ") have been computed.\n"
+                                                    + "return memo[checker][position]= "+memo[checker][position]));
 
             return memo[checker][position];
         }
 
 
         int ans = Integer.MAX_VALUE;
+
         // với mỗi đỉnh chưa đc duyệt
         for(int city=0;city<graph.getVertices().size();city++){
 
@@ -86,7 +86,10 @@ public class DynamicProgramming extends Algorithm {
                 //step3
                 stepList.add(new Step(3,"going from "+ position+ " to " +city));
 
-                int newAns = graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight() + findTour(memo,visited,checker|(1<<city),city);
+                int weight=graph.getEdge(Integer.toString(position),Integer.toString(city)).getWeight();
+
+                int newAns = weight + findTour(memo,visited,checker|(1<<city),city);
+
                 ans = Math.min(ans,newAns);
             }
         }
