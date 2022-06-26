@@ -15,9 +15,8 @@ public class Approximation extends Algorithm {
         super();
         // init pseudoStep
         pseudoStep.put(0, "Get the MST of the (complete) graph");
-        pseudoStep.put(1, "Duplicate each edge in the MST and obtain a eulerian tour");
-        pseudoStep.put(2, "Obtain a TSP tour from the obtained eulerian tour\n" + "skip repeated vertices");
-        pseudoStep.put(3, " return ans\n");
+        pseudoStep.put(1, "Get the DFS tour of the MST");
+        pseudoStep.put(2, "Obtain a TSP tour from the obtained DFS tour\n" + "skip repeated vertices and add source vertex(0) to the end of te list");
     }
 
     @Override
@@ -26,7 +25,7 @@ public class Approximation extends Algorithm {
         stepList.clear();
 
         ArrayList<Integer> finalAns=new ArrayList<>();
-        ArrayList<Integer> euler   =new ArrayList<>();
+        ArrayList<Integer> dfsTrack   =new ArrayList<>();
 
         boolean[] visitedNodes = new boolean[graph.getVertices().size()];
 
@@ -35,17 +34,17 @@ public class Approximation extends Algorithm {
             visitedNodes[i] = false;
         }
 
+        //step 1 in primMST
         int[] parent = primMST();
 
-        dfs(parent,0,visitedNodes,finalAns,euler);
-
-        finalAns.add(0);
-        euler.add(0);
+        dfs(parent,0,visitedNodes,finalAns,dfsTrack);
 
         //step2
-        stepList.add(new Step(1,"The euler tour of the MST is "+ euler));
+        stepList.add(new Step(1,"The dfsTrack tour of the MST is "+ dfsTrack));
 
-        //step3 (step 1 and 2 in primMST)
+        finalAns.add(0);
+
+        //step3
         stepList.add(new Step(2,"Found 2-approximation TSP tour "+ finalAns + " with cost = "+ calculate(finalAns)));
 
         nextStep();
@@ -94,7 +93,6 @@ public class Approximation extends Algorithm {
         }
         return minIndex;
     }
-
 
     public int[] primMST() // getting the Minimum Spanning Tree from the given graph, using Prim's Algorithm
     {
@@ -150,39 +148,37 @@ public class Approximation extends Algorithm {
         return parent; // return the list of MST
     }
 
-
-    void dfs(int[] parent, int startingVertex, boolean[] visitedNodes, ArrayList<Integer> finalAns,ArrayList<Integer> euler) // getting the preorder walk of the MST using DFS
+    void dfs(int[] parent, int startingVertex, boolean[] visitedNodes, ArrayList<Integer> finalAns,ArrayList<Integer> dfsTrack) // getting the preorder walk of the MST using DFS
     {
         // adding the node to final answer
-
-        euler.add(startingVertex);
         finalAns.add(startingVertex);
+
+        dfsTrack.add(startingVertex);
 
         // checking the visited status
         visitedNodes[startingVertex] = true;
 
+        int count = 0;
         // using a recursive call
         for(int i=0;i<graph.getVertices().size();i++)
-        {   euler.add(i);
+        {
             if(i==startingVertex)
             {
                 continue;
             }
             if(parent[i]==startingVertex)//  if startingVertex is parent of i
             {
-
-                if(visitedNodes[i])
-                {
-                    euler.add(i);
-                    System.out.println("I="+i);
-
+                count++;
+                if(count>1){
+                    dfsTrack.add(startingVertex);
                 }
+
                 if(visitedNodes[i])
                 {
 
                     continue;
                 }
-                dfs(parent,i,visitedNodes,finalAns,euler);
+                dfs(parent,i,visitedNodes,finalAns,dfsTrack);
             }
         }
     }
