@@ -59,11 +59,6 @@ public class Graph {
         addEdge(vertex2Id, vertex1Id, weight);
     }
 
-    public void addUnWeightedGraphEdge(String vertex1Id, String vertex2Id) {
-        // add edge to the graph
-        addEdge(vertex1Id, vertex2Id, 0);
-    }
-
     public void removeEdge(String vertex1Id, String vertex2Id) {
         // remove edge from the graph
         Vertex vertex1 = null;
@@ -85,29 +80,14 @@ public class Graph {
         System.out.println("Edge does not exist");
     }
 
-    public static Graph createGraph() {
-        Graph graph = new Graph();
-        graph.addVertex("0");
-        graph.addVertex("1");
-        graph.addVertex("2");
-        graph.addVertex("3");
-        graph.addUndirectedGraphEdge("0", "1", 25);
-        graph.addUndirectedGraphEdge("0", "2", 25);
-        graph.addUndirectedGraphEdge("0", "3", 13);
-        graph.addUndirectedGraphEdge("1", "2", 25);
-        graph.addUndirectedGraphEdge("1", "3", 13);
-        graph.addUndirectedGraphEdge("2", "3", 13);
-        return graph;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Vertex v : vertices) {
-            sb.append("Vertices:" + v.getId() + "\n");
+            sb.append("Vertices:").append(v.getId()).append("\n");
             for (Edge e : edges) {
                 if (e.getSource().getId().equals(v.getId())) {
-                    sb.append(v.getId() + "-->" +e.getDestination().getId() + " " + e.getWeight() + "\n");
+                    sb.append(v.getId()).append("-->").append(e.getDestination().getId()).append(" ").append(e.getWeight()).append("\n");
                 }
             }
         }
@@ -132,6 +112,72 @@ public class Graph {
             }
         }
         return null;
+    }
+
+    public Set<Vertex> getVertices() {
+        return vertices;
+    }
+
+    public Set<Edge> getEdges() {
+        return edges;
+    }
+
+
+
+    //                              ************************E X A M P L E**********************
+    public static Graph graphK4() {
+        Graph graph = new Graph();
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addVertex("3");
+        graph.addUndirectedGraphEdge("0", "1", 25);
+        graph.addUndirectedGraphEdge("0", "2", 25);
+        graph.addUndirectedGraphEdge("0", "3", 13);
+        graph.addUndirectedGraphEdge("1", "2", 25);
+        graph.addUndirectedGraphEdge("1", "3", 13);
+        graph.addUndirectedGraphEdge("2", "3", 13);
+        return graph;
+    }
+
+    public static Graph graphK5() {
+        Graph graph = new Graph();
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addVertex("3");
+        graph.addVertex("4");
+        graph.addUndirectedGraphEdge("0", "1", 24);
+        graph.addUndirectedGraphEdge("0", "2", 13);
+        graph.addUndirectedGraphEdge("0", "3", 13);
+        graph.addUndirectedGraphEdge("0", "4", 22);
+        graph.addUndirectedGraphEdge("1", "2", 22);
+        graph.addUndirectedGraphEdge("1", "3", 13);
+        graph.addUndirectedGraphEdge("1", "4", 13);
+        graph.addUndirectedGraphEdge("2", "3", 19);
+        graph.addUndirectedGraphEdge("2", "4", 14);
+        graph.addUndirectedGraphEdge("3", "4", 19);
+        return graph;
+    }
+
+    public static Graph graphK8() {
+        Graph graph = new Graph();
+        graph.addVertex("0");
+        graph.addVertex("1");
+        graph.addVertex("2");
+        graph.addVertex("3");
+        graph.addVertex("4");
+        graph.addVertex("5");
+        graph.addVertex("6");
+        graph.addVertex("7");
+        graph.addUndirectedGraphEdge("0", "1", 25);
+        graph.addUndirectedGraphEdge("0", "2", 25);
+        graph.addUndirectedGraphEdge("0", "3", 13);
+        graph.addUndirectedGraphEdge("0", "4", 25);
+        graph.addUndirectedGraphEdge("0", "5", 13);
+        graph.addUndirectedGraphEdge("0", "6", 13);
+        graph.addUndirectedGraphEdge("0", "7", 13);
+        return graph;
     }
 
     /*public Set<Vertex> getNeighbors(String vertexId) {
@@ -162,11 +208,4 @@ public class Graph {
         return matrix;
     }*/
 
-    public Set<Vertex> getVertices() {
-        return vertices;
-    }
-
-    public Set<Edge> getEdges() {
-        return edges;
-    }
 }

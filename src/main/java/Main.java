@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Main {
     private static Graph graph = new Graph();
     private static Algorithm algorithm;
-    private static Context context = new Context();
+    private static final Context context = new Context();
 
     public static void main(String[] args) {
 
@@ -29,8 +29,8 @@ public class Main {
             System.out.println("3. Play");
             System.out.println("0. Exit");
             System.out.println("----------------------------------------------------");
-            int choose;
-            switch ( choose = scanner.nextInt()) {
+            int choose = scanner.nextInt();
+            switch (choose) {
                 case 1:
                     graphFunction();
                     break;
@@ -59,28 +59,28 @@ public class Main {
             System.out.println("3. Approximation");
             System.out.println("0. Back");
             System.out.println("----------------------------------------------------");
-            int choose;
-            switch (choose = scanner.nextInt()) {
+            int choose= scanner.nextInt();
+            switch (choose) {
                 case 1:
                     algorithm = new BruteForce();
                     algorithm.setGraph(graph);
                     System.out.println("BruteForce is selected");
                     PressEnterToContinue.run();
-                    return;
+                    break;
                 case 2:
                     algorithm = new DynamicProgramming();
                     algorithm.setGraph(graph);
                     System.out.println("DynamicProgramming is selected");
                     PressEnterToContinue.run();
-                    return;
+                    break;
                 case 3:
                     algorithm = new Approximation();
                     algorithm.setGraph(graph);
                     System.out.println("Approximation is selected");
                     PressEnterToContinue.run();
-                    return;
+                    break;
                 case 0:
-                    return; // exit
+                    return;// exit
                 default:
                     System.out.println("Invalid input");
                     break;
@@ -101,9 +101,7 @@ public class Main {
             System.out.println("7. Show graph");
             System.out.println("0. Back");
             System.out.println("-----------------------------------------------------");
-            int choose = 0;
-            choose = sc.nextInt();
-            sc.nextLine();
+            int choose = sc.nextInt();
             switch (choose) {
                 case 1:
                     graph = new Graph();
@@ -111,9 +109,7 @@ public class Main {
                     PressEnterToContinue.run();
                     break;
                 case 2:
-                    graph = Graph.createGraph();
-                    System.out.println("Use example Graph successfully");
-                    PressEnterToContinue.run();
+                    example();
                     break;
                 case 3:
                     addVertexToGraph();
@@ -137,6 +133,43 @@ public class Main {
         } while (true);
     }
 
+    public static void example() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("----------------------------------------------------");
+            System.out.println("Choose Example");
+            System.out.println("1. K4");
+            System.out.println("2. K5");
+            System.out.println("3. K8");
+            System.out.println("0. Back");
+            System.out.println("----------------------------------------------------");
+            int choose = scanner.nextInt();
+            switch (choose) {
+                case 1:
+                    graph = Graph.graphK4();
+                    System.out.println("Use example K4 successfully");
+                    PressEnterToContinue.run();
+                    break;
+                case 2:
+                    graph = Graph.graphK5();
+                    System.out.println("Use example K5 successfully");
+                    PressEnterToContinue.run();
+                    break;
+                case 3:
+                    graph = Graph.graphK8();
+                    System.out.println("Use example K8 successfully");
+                    PressEnterToContinue.run();
+                    break;
+
+                case 0:
+                    return;
+                default:
+                    System.out.println("Invalid input");
+                    break;
+            }
+        } while (true);
+    }
     public static void addVertexToGraph() {
         Scanner sc = new Scanner(System.in);
         int choose = 0;
@@ -207,10 +240,10 @@ public class Main {
 
     public static void removeEdgeFromGraph() {
         Scanner sc = new Scanner(System.in);
-        int choose = 0;
+        int choose=0;
         do {
             System.out.println("Do you want to remove edge from graph? (1. Yes, 0. No)");
-            choose = sc.nextInt();
+             choose = sc.nextInt();
             sc.nextLine();
             switch (choose) {
                 case 1:
